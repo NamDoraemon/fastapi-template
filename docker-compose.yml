@@ -1,0 +1,24 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: a6:0.1.1
+    env_file: .env
+    restart: unless-stopped
+    tty: true
+    working_dir: /home
+    ports:
+      - "8000:8000"
+    networks:
+      - app-networks
+    extra_hosts:
+      - "get.urbox.local: 10.130.208.95"
+      - "ip-30-0-149-205:30.0.149.205"
+    volumes:
+      - .:/home
+
+networks:
+    app-networks:
+        driver: bridge
